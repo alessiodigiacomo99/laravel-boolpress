@@ -24,3 +24,10 @@ Route::get('articles', function(){
         'data' => App\Article::all(),
     ], 200);
 });
+
+Route::get('categories', function(){
+    return response()->json([
+        'succes' => true,
+        'data' => App\Category::all(),
+    ], 200);
+});

@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('articles_api', 'ArticleController@articles_api')->name('articles_api');
+Route::get('categories_api', 'CategoryController@categories_api')->name('categories_api');
