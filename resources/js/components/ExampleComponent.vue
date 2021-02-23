@@ -2,11 +2,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
+                ARTICOLI:
+                <div class="card" v-for="article in articles" :key="article.id">
+                    <div class="card-header text-uppercase">{{article.title}}</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                        {{article.body}}
                     </div>
                 </div>
             </div>
@@ -16,8 +17,29 @@
 
 <script>
     export default {
+        data(){
+            return {
+                articles: '',
+            }
+        },
+        
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component mounted.');
+            axios.get('api/articles').then(response =>{
+                this.articles = response.data.data;
+            }).catch(error =>{
+                console.log(error);
+            })
         }
     }
 </script>
+<style lang="scss" scoped>
+.card{
+    margin: 20px 0;
+    border: 2px solid lightblue;
+    .card-header{
+        background-color: lightblue;
+    }
+}
+
+</style>
