@@ -5,6 +5,8 @@
 @section('main')
 <div id="app">
     <example-component></example-component>
+    <category-component></category-component>
+    <tag-component></tag-component>
 </div>
 @endsection
 @section('footer')
