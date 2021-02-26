@@ -47,18 +47,12 @@ class ArticleController extends Controller
             'tags' => 'exists:tags,id',
             'category_id' => ''
         ]);
-        /* $newArticle = new Article();
-        $newArticle->title = $request->title;
-        $newArticle->body = $request->body;
-        $newArticle->category->name = $request->category->name;
-        $newArticle->save(); */
 
         Article::create($validateData);
         $post = Article::orderBy('id', 'desc')->first();
         $post->tags()->attach($request->tags);
         $post->category()->associate($request->category_id)->save();
         
-
         return redirect()->route('articles.index');
     }
 
@@ -81,7 +75,10 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles.edit', compact('article'));
+        $tags = Tag::all();
+        $categories = Category::all();
+        
+        return view('articles.edit', compact('article', 'tags', 'categories'));
     }
 
     /**
@@ -95,6 +92,10 @@ class ArticleController extends Controller
     {
         $data = $request->all();
         $article->update($data);
+        
+        $post = Article::orderBy('id', 'desc')->first();
+        $post->tags()->attach($request->tags);
+        $post->category()->associate($request->category_id)->save();
     
         return redirect()->route('articles.index', $article);
     }

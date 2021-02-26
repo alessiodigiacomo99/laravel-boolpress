@@ -17,7 +17,16 @@
         <label for="tags">Tags</label>
         <select name="tags[]" id="tags" multiple>
             @foreach($tags as $tag)
-                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="category_id">category</label>
+        <select name="category_id" id="category_id">
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
         </select>
     </div>
