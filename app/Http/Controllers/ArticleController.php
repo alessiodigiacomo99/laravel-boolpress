@@ -90,11 +90,16 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        $data = $request->all();
-        $article->update($data);
+        $validateData = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'tags' => 'exists:tags,id',
+            'category_id' => ''
+        ]);
+        $article->update($validateData);
         
         $post = Article::orderBy('id', 'desc')->first();
-        $post->tags()->attach($request->tags);
+        $post->tags()->sync($request->tags);
         $post->category()->associate($request->category_id)->save();
     
         return redirect()->route('articles.index', $article);
