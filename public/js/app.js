@@ -1967,9 +1967,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1980,7 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     console.log('Component mounted.');
-    axios.get('api/categories').then(function (response) {
+    axios.get('../../api/categories').then(function (response) {
       _this.categories = response.data.data;
     })["catch"](function (error) {
       console.log(error);
@@ -38476,23 +38473,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-8" },
-        [
-          _vm._v("\n            CATEGORIE:\n            "),
-          _vm._l(_vm.categories, function(category) {
-            return _c("div", { key: category.id, staticClass: "card" }, [
-              _c("div", { staticClass: "card-header text-uppercase" }, [
-                _vm._v(_vm._s(category.name))
-              ])
-            ])
-          })
-        ],
-        2
-      )
-    ])
+    _vm._v("\n\n    CATEGORIE:\n    "),
+    _c(
+      "select",
+      { staticClass: "card" },
+      _vm._l(_vm.categories, function(category) {
+        return _c(
+          "option",
+          { key: category.id, staticClass: "card-header text-uppercase" },
+          [_vm._v(_vm._s(category.name))]
+        )
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = []

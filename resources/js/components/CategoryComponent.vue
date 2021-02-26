@@ -1,15 +1,12 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                CATEGORIE:
-                <div class="card" v-for="category in categories" :key="category.id">
-                    <div class="card-header text-uppercase">{{category.name}}</div>
+    
+        CATEGORIE:
+        <select class="card">
+            <option v-for="category in categories" class="card-header text-uppercase" :key="category.id">{{category.name}}</option>
 
-                    
-                </div>
-            </div>
-        </div>
+            
+        </select>
     </div>
 </template>
 
@@ -23,7 +20,7 @@
         
         mounted() {
             console.log('Component mounted.');
-            axios.get('api/categories').then(response =>{
+            axios.get('../../api/categories').then(response =>{
                 this.categories = response.data.data;
             }).catch(error =>{
                 console.log(error);

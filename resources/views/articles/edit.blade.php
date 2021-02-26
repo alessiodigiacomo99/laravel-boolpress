@@ -13,10 +13,18 @@
         <textarea name="body" id="" cols="30" rows="10">{{$article->body}}</textarea>
     </div>
 
-    <div>
-        <label for="{{($article->category ? $article->category->name : '')}}">categoria</label>
-        <input type="text" name="{{($article->category ? $article->category->name : '')}}" id="" value="{{($article->category ? $article->category->name : '')}}">
+    <div class="form-group">
+        <label for="tags">Tags</label>
+        <select name="tags[]" id="tags" multiple>
+            @foreach($tags as $tag)
+                <option value="{{$tag->id}}">{{$tag->name}}</option>
+            @endforeach
+        </select>
     </div>
 
     <button type="submit">Edit article</button>
 </form>
+@endsection
+@section('footer')
+<script src="{{ asset('js/app.js') }}"></script>
+@endsection

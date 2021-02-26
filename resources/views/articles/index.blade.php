@@ -9,6 +9,7 @@
     <div>
         <h2>{{$article->title}}</h2>
         <p>{{$article->body}}</p>
+        <div>Categoria: {{($article->category ? $article->category->name : '')}}</div>
         <div>created at: {{$article->created_at}}</div>
         <div>updated at: {{$article->updated_at}}</div>
         <a href="{{route('articles.show', $article->id)}}">vedi</a>

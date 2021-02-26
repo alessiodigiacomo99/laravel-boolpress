@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Tag;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -25,7 +27,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('articles.create', compact('tags'), compact('categories'));
     }
 
     /**
@@ -36,13 +40,26 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $newArticle = new Article();
+
+        $validateData = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'tags' => 'exists:tags,id',
+            'category_id' => ''
+        ]);
+        /* $newArticle = new Article();
         $newArticle->title = $request->title;
         $newArticle->body = $request->body;
         $newArticle->category->name = $request->category->name;
-        $newArticle->save();
+        $newArticle->save(); */
 
-        return redirect()->route('articles.index', $newArticle);
+        Article::create($validateData);
+        $post = Article::orderBy('id', 'desc')->first();
+        $post->tags()->attach($request->tags);
+        $post->category()->associate($request->category_id)->save();
+        
+
+        return redirect()->route('articles.index');
     }
 
     /**

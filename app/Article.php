@@ -10,5 +10,10 @@ class Article extends Model
     {
         return $this->belongsto('App\Category');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
     protected $fillable = ['title' , 'body'];
 }
